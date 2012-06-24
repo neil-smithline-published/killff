@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# Behavior:
+#
+#   On Mac OS X, kill a running Firefox and then open a new Firefox.
+#   You can use this if Firefox has hung. You can use this anytime you
+#   want to restart Firefox (eg: you've installed an extension that
+#   requires a restart).
+# 
+#   That said, I recommend using Eric Vold's Restartless Restart
+#   Firefox extension (http://bit.ly/Mu8FCg). The Restartless Restart
+#   extension performs a safe shutdown on Firefox. killff is more of a
+#   shutdown with extreme prejudice.
+#
+#   If you have tried to quit Firefox or restart it and that has hung,
+#   then using killff is appropriate.
+
+# Installation:
+#
+#   1. Copy into a directory in your PATH. $HOME/bin is probably a
+#   good choice
+#
+#   2. Make the script executable. Likely "chmod +x killff" from a
+#   Terminal.app window.
+#
+#   3. Set the BROWSER and LOGFILE variables per the comments below.
+
+# Usage:
+#
+#   In a Terminal.app window, type "killff" and then hit the return key. 
+
+# The version of the browser you are using
+# BROWSER="/Applications/Aurora.app"
+BROWSER="/Applications/Firefox.app"
+
+# You can send the ouput of killff to several different locations
+# (1) Log all killff operations
+LOGFILE="$HOME/killff-log.txt"
+# (2) Operate silently
+# LOGFILE="/dev/null"
+# (3) Send all output to stdout
+# LOGFILE="/dev/stdout"
+# (4) Send all output to stderr
+# LOGFILE="/dev/stderr"
+
+########################################################################
+#                            MACOSX SPECIFIC
+#
+# I think the killall should work on all *nix systems but the 
+
+########################################################################
+
+# Actual binary executable names for FireFox
+NAMES="firefox plugin-container"
+
+(
+    echo "========== $0: Executed at $(date)"
+    echo "========== $0: Arguments are '$NAMES'"
+    killall -v -m $NAMES
+) >> "$LOGFILE" 2>&1 
+
+(sleep 5; open /Applications/Aurora.app) &

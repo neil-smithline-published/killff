@@ -1,0 +1,5 @@
+* Killff
+Kill a running Firefox and start a new Firefox. This should primarily be used to deal with a hung Firefox.
+
+* Installation
+Follow the instructions at the beginning of the killff script.
